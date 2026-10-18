@@ -1,0 +1,23 @@
+package main
+
+import "fmt"
+
+func main() {
+    scores := map[string]int{
+        "Alice": 90,
+        "Bob":   0,
+    }
+
+    names := []string{"Bob", "Charlie"}
+
+    for _, name := range names {
+        score, ok := scores[name]
+
+        if ok {
+            fmt.Println(name, "is in the map")
+            fmt.Println("Score:", score)
+        } else {
+            fmt.Println(name, "is missing")
+        }
+    }
+}

@@ -1,0 +1,35 @@
+package main
+
+import (
+    "bytes"
+    "testing"
+)
+
+var resultString string
+var resultBytes []byte
+
+func BenchmarkProcessPayload(b *testing.B) {
+    data := bytes.Repeat([]byte("  Hello\r Go  "), 100)
+
+    if processPayload(data) != string(processPayloadBytes(data)) {
+        b.Fatal("results differ")
+    }
+
+    b.Run("Original", func(b *testing.B) {
+        b.ReportAllocs()
+        b.ResetTimer()
+
+        for i := 0; i < b.N; i++ {
+            resultString = processPayload(data)
+        }
+    })
+
+    b.Run("Bytes", func(b *testing.B) {
+        b.ReportAllocs()
+        b.ResetTimer()
+
+        for i := 0; i < b.N; i++ {
+            resultBytes = processPayloadBytes(data)
+        }
+    })
+}

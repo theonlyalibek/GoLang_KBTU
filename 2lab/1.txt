@@ -1,0 +1,23 @@
+package main
+
+import (
+    "fmt"
+    "strings"
+)
+
+func main() {
+    first := "Меня "
+    second := "зовут "
+    third := "Alibek"
+
+    var builder strings.Builder
+
+    totalLength := len(first) + len(second) + len(third)
+    builder.Grow(totalLength)
+
+    builder.WriteString(first)
+    builder.WriteString(second)
+    builder.WriteString(third)
+
+    fmt.Println(builder.String())
+}

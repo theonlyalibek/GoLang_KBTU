@@ -1,0 +1,6 @@
+.reference/
+.scratch/
+bin/
+*.test
+coverage.out
+/docs/

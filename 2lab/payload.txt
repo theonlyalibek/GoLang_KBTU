@@ -1,0 +1,26 @@
+package main
+
+import (
+    "bytes"
+    "fmt"
+    "strings"
+)
+
+// Исходный вариант из PDF
+func processPayload(data []byte) string {
+    trimmed := string(bytes.TrimSpace(data))
+    return strings.ReplaceAll(trimmed, "\r", "")
+}
+
+// Вариант, работающий со срезами байтов
+func processPayloadBytes(data []byte) []byte {
+    trimmed := bytes.TrimSpace(data)
+    return bytes.ReplaceAll(trimmed, []byte("\r"), []byte(""))
+}
+
+func main() {
+    data := []byte("  Hello\r Go  ")
+
+    fmt.Printf("Original: %s\n", processPayload(data))
+    fmt.Printf("Bytes: %s\n", processPayloadBytes(data))
+}

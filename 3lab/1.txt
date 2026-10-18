@@ -1,0 +1,46 @@
+package main
+
+import "fmt"
+
+type Student struct {
+	Name    string
+	ID      int
+	GPA     float64
+	Courses []string
+}
+
+func addCourse(s Student, course string) {
+	s.Courses = append(s.Courses, course)
+	fmt.Println("Inside value function:", s.Courses)
+}
+
+func addCoursePointer(s *Student, course string) {
+	s.Courses = append(s.Courses, course)
+	fmt.Println("Inside pointer function:", s.Courses)
+}
+
+func main() {
+	var s1 Student
+
+	s2 := Student{
+		Name:    "Alibek",
+		ID:      1,
+		GPA:     3.5,
+		Courses: []string{"Go"},
+	}
+
+	s3 := Student{"Dias", 2, 3.2, []string{"Go", "Databases"}}
+
+	s4 := &Student{Name: "Timur", ID: 3, GPA: 3.8}
+
+	fmt.Printf("s1: %+v\n", s1)
+	fmt.Printf("s2: %+v\n", s2)
+	fmt.Printf("s3: %+v\n", s3)
+	fmt.Printf("s4: %+v\n", s4)
+
+	addCourse(s2, "Math")
+	fmt.Printf("After value function: %+v\n", s2)
+
+	addCoursePointer(&s2, "Math")
+	fmt.Printf("After pointer function: %+v\n", s2)
+}

@@ -1,0 +1,49 @@
+package main
+
+import "fmt"
+
+type Counter struct{ n int }
+
+func (c Counter) Get() int {
+	return c.n
+}
+
+func (c *Counter) Inc() {
+	c.n++
+}
+
+func NewCounter() Counter {
+	return Counter{}
+}
+
+func main() {
+	var c Counter
+
+	c.Inc()         // 1: OK - у переменной можно взять адрес.
+	(&c).Inc()      // 2: OK - явно передаём указатель.
+	Counter{}.Get() // 3: OK - Get работает со значением.
+
+	// 4: Ошибка - у литерала нельзя автоматически взять адрес.
+	// Counter{}.Inc()
+
+	// 5: Ошибка - у возвращённого значения нельзя взять адрес.
+	// NewCounter().Inc()
+
+	m := map[string]Counter{"a": {}}
+
+	m["a"].Get() // 6: OK - Get работает со значением.
+
+	// 7: Ошибка - у элемента map нельзя взять адрес.
+	// m["a"].Inc()
+
+	s := []Counter{{}}
+	s[0].Inc() // 8: OK - у элемента среза можно взять адрес.
+
+	pm := map[string]*Counter{"a": {}}
+	pm["a"].Inc() // 9: OK - в map уже хранится указатель.
+
+	fmt.Println("c:", c.Get())
+	fmt.Println("map value:", m["a"].Get())
+	fmt.Println("slice element:", s[0].Get())
+	fmt.Println("map pointer:", pm["a"].Get())
+}

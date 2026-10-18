@@ -1,0 +1,4 @@
+SIS/.git-backup/
+*.exe
+*.test
+coverage.out

@@ -1,0 +1,49 @@
+package main
+
+import "fmt" 
+
+type Person struct {
+	Name  string
+	Email string
+}
+
+func (p Person) Contact() string {
+	return fmt.Sprintf("%s <%s>", p.Name, p.Email)
+}
+
+type Student struct {
+	Person
+	GPA float64
+}
+
+type Teacher struct {
+	Person
+	Department string
+}
+
+func (t Teacher) Contact() string {
+	return fmt.Sprintf("%s, Department: %s",
+		t.Person.Contact(), t.Department)
+}
+
+func main() {
+	student := Student{
+		Person: Person{
+			Name:  "Alibek",
+			Email: "alibek@example.com",
+		},
+		GPA: 3.5,
+	}
+
+	teacher := Teacher{
+		Person: Person{
+			Name:  "Bakytzhan",
+			Email: "bakytzhan@example.com",
+		},
+		Department: "Computer Science",
+	}
+
+	fmt.Println("Student:", student.Contact())
+	fmt.Println("Teacher:", teacher.Contact())
+	fmt.Println("Teacher's Person:", teacher.Person.Contact())
+}

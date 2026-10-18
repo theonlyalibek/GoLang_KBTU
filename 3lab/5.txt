@@ -1,0 +1,42 @@
+package main
+
+import "fmt"
+
+type Report struct {
+	Title  string
+	Values [1024]float64
+}
+
+//go:noinline
+func (r Report) FirstValue() float64 {
+	return r.Values[0]
+}
+
+//go:noinline
+func (r *Report) FirstPointer() float64 {
+	return r.Values[0]
+}
+
+type Point struct {
+	X, Y float64
+}
+
+//go:noinline
+func (p Point) FirstValue() float64 {
+	return p.X
+}
+
+//go:noinline
+func (p *Point) FirstPointer() float64 {
+	return p.X
+}
+
+func main() {
+	r := Report{Title: "Example"}
+	r.Values[0] = 42
+
+	p := Point{X: 3, Y: 4}
+
+	fmt.Println("Report:", r.FirstValue(), r.FirstPointer())
+	fmt.Println("Point:", p.FirstValue(), p.FirstPointer())
+}

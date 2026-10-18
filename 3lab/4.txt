@@ -1,0 +1,66 @@
+package main
+
+import "fmt"
+
+type BankAccount struct {
+	Owner   string
+	balance float64
+}
+
+func (a *BankAccount) Deposit(amount float64) {
+	a.balance += amount
+}
+
+func (a *BankAccount) Withdraw(amount float64) error {
+	if amount < 0 {
+		return fmt.Errorf("amount must not be negative")
+	}
+
+	if amount > a.balance {
+		return fmt.Errorf(
+			"not enough money: balance %.2f, requested %.2f",
+			a.balance, amount,
+		)
+	}
+
+	a.balance -= amount
+	return nil
+}
+
+func (a *BankAccount) Balance() float64 {
+	return a.balance
+}
+
+func main() {
+	accounts := []BankAccount{
+		{Owner: "Alibek", balance: 1000},
+		{Owner: "Dias", balance: 2000},
+		{Owner: "Timur", balance: 3000},
+	}
+
+	accounts[0].Deposit(200)
+
+	if err := accounts[0].Withdraw(100); err != nil {
+		fmt.Println("Withdrawal error:", err)
+	}
+
+	if err := accounts[0].Withdraw(10000); err != nil {
+		fmt.Println("Withdrawal error:", err)
+	}
+
+	fmt.Println("Before interest:")
+	for i := range accounts {
+		fmt.Printf("%s: %.2f\n",
+			accounts[i].Owner, accounts[i].Balance())
+	}
+
+	for i := range accounts {
+		accounts[i].Deposit(accounts[i].Balance() * 0.05)
+	}
+
+	fmt.Println("After 5% interest:")
+	for i := range accounts {
+		fmt.Printf("%s: %.2f\n",
+			accounts[i].Owner, accounts[i].Balance())
+	}
+}

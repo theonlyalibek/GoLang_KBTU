@@ -1,0 +1,51 @@
+package main
+
+import "testing"
+
+var benchmarkResult float64
+
+func BenchmarkFirstValue(b *testing.B) {
+	r := Report{Title: "Example"}
+	r.Values[0] = 42
+
+	b.ReportAllocs()
+	b.ResetTimer()
+
+	for i := 0; i < b.N; i++ {
+		benchmarkResult = r.FirstValue()
+	}
+}
+
+func BenchmarkFirstPointer(b *testing.B) {
+	r := Report{Title: "Example"}
+	r.Values[0] = 42
+
+	b.ReportAllocs()
+	b.ResetTimer()
+
+	for i := 0; i < b.N; i++ {
+		benchmarkResult = r.FirstPointer()
+	}
+}
+
+func BenchmarkPointFirstValue(b *testing.B) {
+	p := Point{X: 3, Y: 4}
+
+	b.ReportAllocs()
+	b.ResetTimer()
+
+	for i := 0; i < b.N; i++ {
+		benchmarkResult = p.FirstValue()
+	}
+}
+
+func BenchmarkPointFirstPointer(b *testing.B) {
+	p := Point{X: 3, Y: 4}
+
+	b.ReportAllocs()
+	b.ResetTimer()
+
+	for i := 0; i < b.N; i++ {
+		benchmarkResult = p.FirstPointer()
+	}
+}

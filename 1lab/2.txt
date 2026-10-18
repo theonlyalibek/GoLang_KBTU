@@ -1,0 +1,32 @@
+package main
+
+import "fmt"
+
+func main() {
+    numbers := []int{10, 20, 30}
+    fmt.Println("Способ 1:", numbers)
+    fmt.Println("len:", len(numbers), "cap:", cap(numbers))
+
+    var empty []int
+    fmt.Println("Способ 2:", empty)
+    fmt.Println("len:", len(empty), "cap:", cap(empty))
+
+    made := make([]int, 3, 5)
+    fmt.Println("Способ 3:", made)
+    fmt.Println("len:", len(made), "cap:", cap(made))
+
+    array := [5]int{10, 20, 30, 40, 50}
+    part := array[1:4]
+    fmt.Println("Способ 4:", part)
+    fmt.Println("len:", len(part), "cap:", cap(part))
+
+	part[0] = 99
+
+	fmt.Println("Массив после изменения среза:", array)
+	fmt.Println("Срез:", part)
+
+	array[2] = 88
+
+	fmt.Println("Массив:", array)
+	fmt.Println("Срез после изменения массива:", part)
+}

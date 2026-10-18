@@ -1,0 +1,14 @@
+package main
+
+import (
+	"fmt"
+	"strings"
+)
+
+func main() {
+	fmt.Println("TrimRight:", strings.TrimRight("123oxo", "xo"))
+	fmt.Println("TrimSuffix:", strings.TrimSuffix("123oxo", "xo"))
+
+	fmt.Println("TrimLeft:", strings.TrimLeft("oxo123", "ox"))
+	fmt.Println("TrimPrefix:", strings.TrimPrefix("oxo123", "ox"))
+}
